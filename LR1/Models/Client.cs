@@ -7,12 +7,15 @@ namespace LR1.Models
 {
     internal class Client : User
     {
-        private bool IsApproved { get; set; } = false;
-        private List<Guid> AccountsId { get; set; }
+        public bool IsApproved { get; private set; }
         public Client(string name, string password) : base(name, password)
         {
             Role = Role.Client;
-            AccountsId = new List<Guid>();
+            IsApproved = false;
+        }
+        public void Approved()
+        {
+            IsApproved = true;
         }
 
     }

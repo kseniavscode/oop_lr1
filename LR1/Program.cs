@@ -1,10 +1,16 @@
-﻿namespace LR1
+﻿using LR1.Data;
+using LR1.Services
+
+namespace LR1
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            IUserRepository userRepository = new InMemoryUserRepositoryn();
+            Service service = new Service(userRepository);
+
+
         }
     }
 }

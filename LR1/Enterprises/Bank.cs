@@ -6,7 +6,13 @@ namespace LR1.Enterprises
 {
     internal class Bank
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
+        private Guid Id { get; set; }
+        private string Name { get; set; }
+
+        public Bank(string name)
+        {
+            Id = Guid.NewGuid();
+            Name = name;
+        }
     }
 }

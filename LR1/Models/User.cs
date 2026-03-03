@@ -7,10 +7,10 @@ namespace LR1.Models
 {
     internal abstract class User
     {
-        protected Guid Id { get; set; }
-        private string Name { get; set; }
-        private string Password { get; set; }
-        protected Role Role { get; set; }
+        public Guid Id { get; private set; }
+        public string Name { get; private set; }
+        public string Password { get; private set; }
+        public Role Role { get; set; }
 
         protected User(string name, string password)
         {
