@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using LR1.Enums
+using LR1.Enums;
 
 namespace LR1.Models
 {
