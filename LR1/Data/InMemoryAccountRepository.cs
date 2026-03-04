@@ -18,5 +18,10 @@ namespace LR1.Data
         {
             return Accounts.Where(x => x.ClientId == clientId).ToList();
         }
+
+        public Account GetAccountById(Guid id)
+        {
+            return Accounts.FirstOrDefault(x => x.Id == id);
+        }
     }
 }

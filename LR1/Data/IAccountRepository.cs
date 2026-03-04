@@ -9,5 +9,6 @@ namespace LR1.Data
     {
         void AddAccount(Account account);
         List<Account> GetAccountClientId(Guid clientId);
+        Account GetAccountById(Guid id);
     }
 }

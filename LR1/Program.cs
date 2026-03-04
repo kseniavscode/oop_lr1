@@ -117,21 +117,71 @@ namespace LR1
                         break;
                     case 2:
                         var list_accounts = clientService.GetMyAccounts(client.Id);
+                        if (list_accounts.Count() == 0)
+                        {
+                            Console.WriteLine("У Вас нет счетов.");
+                            continue;
+                        }
                         Console.WriteLine("Список всех Ваших счетов:");
+                        int i = 1;
                         foreach(Account acc in list_accounts)
                         {
-                            Console.WriteLine($"Имя счета: {acc.Id}");
+                            Console.WriteLine($"{i++}. Имя счета: {acc.Id}");
                             Console.WriteLine($"------Баланс на счету: { acc.Balance}");
                             Console.WriteLine();
+                        }
+                        int accIndex;
+                        do
+                        {
+                            Console.WriteLine("Выберите счет, с которым дальше будем работать, либо введите 0 для выхода из раздела Список счетов");
+                        } while (!int.TryParse(Console.ReadLine(), out accIndex) || accIndex > list_accounts.Count());
+                        if (accIndex == 0) continue;
+                        int choice_account;
+                        do
+                        {
+                            Console.WriteLine(" ______________________________________________________ ");
+                            Console.WriteLine("|   Выберите одно из действий:                         |");
+                            Console.WriteLine("| 1. Пополнить                                         |");
+                            Console.WriteLine("| 2. Снять                                             |");
+                            Console.WriteLine("| 3. Закрыть счет                                      |");
+                            Console.WriteLine(" ______________________________________________________ ");
+                        } while (!int.TryParse(Console.ReadLine(), out choice_account));
+                        switch (choice_account)
+                        {
+                            case 1:
+                                Console.WriteLine("Введите сумму для пополнения.");
+                                if (decimal.TryParse(Console.ReadLine(), out decimal sum))
+                                { 
+                                    Console.WriteLine(clientService.TransferToTheAccount(client.Id, list_accounts[accIndex - 1].Id, sum));
+                                }
+                                break;
+                            case 2:
+                                Console.WriteLine("Введите сумму для снятия.");
+                                if (decimal.TryParse(Console.ReadLine(), out decimal sum_s))
+                                {
+                                    
+                                    Console.WriteLine(clientService.WithdrawFromAccount(client.Id, list_accounts[accIndex - 1].Id, sum_s));
+                                    
+                                }
+                                break;
+                            case 3:
+                                clientService.CloseAccount(client.Id, list_accounts[accIndex - 1].Id);
+                                Console.WriteLine("Счет закрыт.");
+                                break;
                         }
                         break;
                     case 3:
                         Account new_account = clientService.OpenAccount(client.Id);
                         Console.WriteLine($"Вы открыли счет {new_account.Id}");
                         break;
+
                     case 4:
-                        Console.WriteLine("Введите имя счета, который хотите закрыть");
-                        string str = Console.ReadLine();
+                        //Console.WriteLine("Введите порядковый номер счета, который хотите закрыть");
+                    
+                        //if (int.TryParse(Console.ReadLine(), out int accIndex))
+                        //{
+                        //    if (accIndex > 0 && accIndex <= list_accounts.Count())
+                        //}
                         //clientService.CloseAccount((Guid)str);
 
                         break;
